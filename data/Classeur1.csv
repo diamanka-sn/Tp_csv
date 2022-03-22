@@ -1,0 +1,9 @@
+idCategorie;libelle;idProduit;Reference;idCategorie;Libelle;Description;UniteStock;NombreStock;PrixUnitaire
+1;Souris;12;RO5;1;Souris sans fil;Souris sans file;piece;1;2500
+2;Cle;13;Ro6;2;Test Libelle; a vendre;douzaine;12;200000
+5;Torche;40;RO6;5;Test Libelle;a vendre;dizaine;10;200000
+6;Beaute;19;RO19;6;Laptop;Mini laptop;piece;1;20000000
+7;Ecran;10;RO10;7;Dell ;mini dell;piece;1;20000000
+8;Projecteur;20;RO20;8;hp;mini dell;piece;1;2000
+9;Telephone;54;RO54;9;hp;mini hp;piece;1;2000000
+10;Montre;15;RO15;10;dell mini;mini mini;piece;1;20000
