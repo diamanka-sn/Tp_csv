@@ -30,33 +30,33 @@ if (isset($_POST["import"])) {
             $quantite = $colonne[7];
             $dateE = $colonne[8];
 
-            $query = $pdo->prepare("SELECT idCategorie FROM categorie WHERE libelle=? limit 1");
-            $query->execute([$libelle]);
-            $user = $query->fetch();
+            $requette = $pdo->prepare("SELECT idCategorie FROM categorie WHERE libelle=? limit 1");
+            $requette->execute([$libelle]);
+            $user = $requette->fetch();
             if ($user) {
                 $idCa = $user['idCategorie'];
             } else {
                 $newAuthor = 'INSERT IGNORE INTO categorie(libelle)
                 VALUES (?)';
 
-                $query = $pdo->prepare($newAuthor);
-                $query->execute(array($libelle));
+                $requette = $pdo->prepare($newAuthor);
+                $requette->execute(array($libelle));
 
                 $idCa = $pdo->lastInsertId();
             }
 
-            $newCat = 'INSERT INTO produit (reference,idCategorie,libelle,description,uniteStock,nombreStock,prixUnitaire)  VALUES (:reference,:idCategorie,:libelle,:description,:uniteStock,:nombreStock,:prixUnitaire)';
+            $insertionProduit = 'INSERT INTO produit (reference,idCategorie,libelle,description,uniteStock,nombreStock,prixUnitaire)  VALUES (:reference,:idCategorie,:libelle,:description,:uniteStock,:nombreStock,:prixUnitaire)';
 
-            $query = $pdo->prepare($newCat);
-            $query->execute(array(':reference' => $reference, ':idCategorie' => $idCa, ':libelle' => $libelleProduit, ':description' => $description, ':uniteStock' => $uniteS, ':nombreStock' => $nombreStock, ':prixUnitaire' => $prixUnitaire));
+            $requette = $pdo->prepare($insertionProduit);
+            $requette->execute(array(':reference' => $reference, ':idCategorie' => $idCa, ':libelle' => $libelleProduit, ':description' => $description, ':uniteStock' => $uniteS, ':nombreStock' => $nombreStock, ':prixUnitaire' => $prixUnitaire));
 
-            $category = $pdo->lastInsertId();
+            $categorie_id = $pdo->lastInsertId();
 
 
-            $newNovel = 'INSERT INTO stock (reference,quantite,date_peremption) VALUES (?, ?, ?)';
+            $insertionStock = 'INSERT INTO stock (reference,quantite,date_peremption) VALUES (?, ?, ?)';
 
-            $query = $pdo->prepare($newNovel);
-            $query->execute(array($reference, $quantite, $dateE));
+            $requette = $pdo->prepare($insertionStock);
+            $requette->execute(array($reference, $quantite, $dateE));
 
 
             $sql = "DELETE FROM `categorie` WHERE `libelle` = :libelle";
